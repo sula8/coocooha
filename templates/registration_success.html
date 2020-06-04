@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <main class="container mt-3 mb-5">
+
+    <section class="mx-auto pt-5 pb-3" style="width: 60%;"> 
+      <div class="card pr-4">
+        <form action="/">
+          <div class="row">
+            <div class="col-6">
+              <img src="/static/sing-up.jpg" alt="" class="img-fluid">
+            </div>
+            <div class="col-6 py-4 px-2">
+              <p class="h5 my-3"><b>Регистрация</b></p>
+              <div class="form-group">
+                <p>Поздравлем!<br>
+                  Регистрация прошла успешно!<br>
+                  Ваш email: <b>{{ form.email.data }}</b></p>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+
+  </main>
+{% endblock content%}

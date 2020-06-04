@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <main class="container mt-3 mb-5">
+
+    <section class="mx-auto pt-5 pb-3" style="width: 60%;"> 
+      <div class="card pr-4">
+        <form action="/login/" method="post">
+          <div class="row">
+            <div class="col-6">
+              <img src="/static/sing-up.jpg" alt="" class="img-fluid">
+            </div>
+            <div class="col-6 py-4 px-2">
+              {% if error_msg %}
+                  <div class="alert alert-warning" role="alert">
+                    {{ error_msg}}
+                  </div>
+              {% endif %}
+              <p class="h5 my-3"><b>Вход</b></p>
+              <div class="form-group">
+                  {{ form.email.label(class_="text-muted") }}
+                  {{ form.email(class_="form-control") }}
+              </div>
+              <div class="form-group">
+                  {{ form.password.label(class_="text-muted") }}
+                  {{ form.password(class_="form-control") }}
+              </div>
+              <div class="form-group pt-2">
+                  {{ form.submit(class_="btn btn-dark") }}
+              </div>
+              {{ form.csrf_token }}
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+
+  </main>
+{% endblock content %}
