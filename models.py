@@ -30,6 +30,7 @@ class Recipe(db.Model):
 	instruction = db.Column(db.Text)
 
 	ingredients = db.relationship('Ingredient', secondary=recipe_ingredient_assn, back_populates='recipes')
+	users = db.relationship('User', secondary=recipe_user_assn, back_populates='favorites')
 
 
 class Ingredient(db.Model):
@@ -56,5 +57,5 @@ class User(db.Model):
 	email = db.Column(db.String, unique=True)
 	password = db.Column(db.String)
 
-	favorites = db.relationship('Recipe', secondary=recipe_user_assn, backref='users')
+	favorites = db.relationship('Recipe', secondary=recipe_user_assn, back_populates='users')
 

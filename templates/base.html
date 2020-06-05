@@ -30,14 +30,21 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse justify-content-end text-right" id="navbarNav">
-        <p class="navbar-text text-body col-4 m-0">
-          dasha, в избранном <a href="#" style="text-decoration: underline;">5 рецептов!</a>
-        </p>
-        <ul class="navbar-nav col-1">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Выйти</a>
-          </li>
-        </ul>
+        {% if user %}
+            <p class="navbar-text text-body col-4 m-0">
+              {{ user.email }}, в избранном <a href="/favorites" style="text-decoration: underline;"> {{ user.favorites | length }} рецептов!</a>
+            </p>
+            <ul class="navbar-nav col-1">
+              <li class="nav-item active">
+                <form action="/logout" method="post">
+                  <input type="submit" value="Выйти">
+                </form>
+              </li>
+            </ul>
+        {% else %}
+            <a href="/login" class="btn btn-primary">Войти в аккаунт</a>
+            <a href="/registration" class="btn btn-secondary">Зарегистрироваться</a>
+        {% endif %}
       </div>
     </nav>
   </header>

@@ -61,8 +61,8 @@
         <h2 class="h3 py-5 mb-3 font-weight-bold">Самые популярные <br>рецепты</h2>
         <div class="row">
           {% for recipe in recipes %}
-          <div class="col-lg-4 col-sm-6 border-right pr-0">
-            <div class="border-top py-4 px-5 h-100">
+          <div class="col-lg-4 col-sm-6 pr-0">
+            <div class="py-4 px-5 h-100">
               <a href="/recipe/{{ recipe.id }}" class="d-block pb-3">
                 <img src="{{ recipe.picture }}" alt="" width="124" class="rounded-circle">
               </a>

@@ -1,33 +1,31 @@
-import os
-
 from flask import Flask
 from flask import url_for
 from flask import render_template
 from flask import session
 from flask import redirect
 from flask import request
+
 from flask_migrate import Migrate
+from sqlalchemy import func
 
-from models import db, Recipe, User, IngredientGroup, Ingredient
+from models import db, Recipe, User, IngredientGroup, Ingredient, recipe_user_assn
 from forms import RegistrationForm, LoginForm
-
+from config import Config
 
 app = Flask(__name__)
-
-app.secret_key = 'Developer' #TODO Скрыть этот ключ в переменной окружения в .env
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.config.from_object(Config)
 
 db.init_app(app)
+
 migrate = Migrate(app, db)
 
 
 @app.route('/')
 def index():
-    recipes = Recipe.query.all()
-    recipes_sorted = sorted(recipes, key=lambda r: r.users, reverse=True)
+    total_favs = func.count(recipe_user_assn.c.user_id)
+    recipes = Recipe.query.join(recipe_user_assn).group_by(Recipe).order_by(total_favs.desc()).limit(6).all()
 
-    return render_template("index.html", recipes=recipes_sorted[:6])
+    return render_template("index.html", recipes=recipes)
 
 
 @app.route('/recipe/<recipe_id>/')
@@ -225,7 +223,14 @@ def page_not_found(e):
     return redirect('/'), 405
 
 #export DATABASE_URL='postgresql+psycopg2://postgres:postgres@127.0.0.1:5432/coocooha'
-#TODO: шапка
-#TODO: картинки
-#TODO: блупринты
-#TODO: эррор хэндлеры
+
+#TODO:блупринты
+
+#TODO: логин
+#TODO: шапка - передать user
+
+
+#TODO:урл_фор
+#TODO:картинки
+#TODO:эррор хэндлер
+#TODO:контекст
