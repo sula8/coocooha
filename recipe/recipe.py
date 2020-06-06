@@ -5,7 +5,7 @@ from flask import render_template
 from models import Recipe, User
 
 
-recipe = Blueprint('recipe', __name__, template_folder='templates')
+recipe = Blueprint('recipes', __name__, template_folder='templates')
 
 
 @recipe.route('/<recipe_id>/')
@@ -20,7 +20,7 @@ def render_recipe(recipe_id):
         user_id = session.get('user_id')
         user = User.query.filter(User.id == user_id).first()
 
-        if recipe in user.favorites:
+        if curr_recipe in user.favorites:
             recipe_in_fav = True
 
     if session.get('user_ingredients'):
