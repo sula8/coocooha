@@ -18,6 +18,7 @@ from favorites.favorites import favorites
 from registration.registration import user_creation, user_datastore
 
 
+
 app = Flask(__name__)
 
 app.config.from_object(Config)
@@ -62,17 +63,10 @@ app.register_blueprint(favorites, url_prefix='/favorites')
 app.register_blueprint(user_creation, url_prefix='/registration')
 
 
-@app.errorhandler(404)
-def page_not_found(e):
-    return '404 error', 404
 
 
-@app.errorhandler(405)
-def page_not_found(e):
-    return redirect('/'), 405
 
+#TODO: удалить это: export DATABASE_URL='postgresql+psycopg2://postgres:postgres@127.0.0.1:5432/coocooha'
+#TODO: удалить это: export FLASK_ENV=development
 
-#export DATABASE_URL='postgresql+psycopg2://postgres:postgres@127.0.0.1:5432/coocooha'
-#export FLASK_ENV=development
-
-#TODO:эррор хэндлеры
+#TODO: эррор хэндлеры
