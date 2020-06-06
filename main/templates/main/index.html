@@ -63,10 +63,11 @@
           {% for recipe in recipes %}
           <div class="col-lg-4 col-sm-6 pr-0">
             <div class="py-4 px-5 h-100">
-              <a href="/recipe/{{ recipe.id }}" class="d-block pb-3">
+
+              <a href="{{ url_for('recipe.render_recipe', recipe_id = recipe.id) }}" class="d-block pb-3">
                 <img src="{{ recipe.picture }}" alt="" width="124" class="rounded-circle">
               </a>
-              <a href="/recipe/{{ recipe.id }}">{{ recipe.title }}</a>
+              <a href="{{ url_for('recipe.render_recipe', recipe_id = recipe.id) }}">{{ recipe.title }}</a>
             </div>
           </div>
           {% endfor %}
