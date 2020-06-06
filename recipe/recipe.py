@@ -1,4 +1,7 @@
-from flask import Blueprint, send_from_directory
+from os import path
+
+from flask import Blueprint
+from flask import send_file
 from flask import session
 from flask import render_template
 from flask_login import current_user
@@ -34,6 +37,6 @@ def render_recipe(recipe_id):
                            wizard_results=wizard_results)
 
 
-@recipe.route('/pictures/<path:filename>', methods=['GET', 'POST'])
+@recipe.route('/pictures/<path:filename>')
 def get_recipe_pic(filename):
-    return send_from_directory(PIC_FOLDER, filename, as_attachment=True)
+    return send_file(path.join('recipe', 'pictures', filename))

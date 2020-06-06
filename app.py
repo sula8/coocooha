@@ -56,6 +56,6 @@ def page_not_found(e):
 #export DATABASE_URL='postgresql+psycopg2://postgres:postgres@127.0.0.1:5432/coocooha'
 #export FLASK_ENV=development
 
-#TODO:секьюр админ
+#TODO:секьюр админ и регистрация(пароль)
 #TODO:картинки
 #TODO:эррор хэндлеры
