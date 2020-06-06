@@ -14,7 +14,7 @@
           </div>
           {% if not recipe_in_fav %}
               <div class="col">
-                <form action="/add_fav/{{ recipe.id }}/" method="post"><input type="submit" value="Добавить в избранное" class="btn btn-outline-danger rounded-pill px-4"></form>
+                <form action="{{ url_for('favorites.add_to_fav', recipe_id=recipe.id) }}" method="post"><input type="submit" value="Добавить в избранное" class="btn btn-outline-danger rounded-pill px-4"></form>
               </div>
           {% else %}
               <div class="col">
@@ -33,11 +33,11 @@
                 <li class="mb-2 d-flex">
                   {% if user_ingredients and (ig.id in user_ingredients) %}
                       <div style="width: 25px;">
-                        <img src="/static/check.svg" alt="" width="19">
+                        <img src="{{ url_for('static', filename='check.svg') }}" alt="" width="19">
                       </div>
                   {% else %}
                       <div style="width: 25px;">
-                        <img src="/static/close.svg" alt="" width="19">
+                        <img src="{{ url_for('static', filename='close.svg') }}" alt="" width="19">
                       </div>
                   {% endif %}
                   <span class="pl-2">{{ ig.title }}</span>
@@ -52,11 +52,11 @@
       </div>
       {% if wizard_results %}
           <div class="mt-5 text-center">
-            <a href="/wizard-results/" class="btn btn-warning rounded-pill px-4"><b>Вернуться к найденным рецептам</b></a>
+            <a href="{{ url_for('wizard.render_wizard_results') }}" class="btn btn-warning rounded-pill px-4"><b>Вернуться к найденным рецептам</b></a>
           </div>
       {% else %}
           <div class="mt-5 text-center">
-            <a href="/wizard/" class="btn btn-warning rounded-pill px-4"><b>Искать блюда</b></a>
+            <a href="{{ url_for('wizard.render_wizard') }}" class="btn btn-warning rounded-pill px-4"><b>Искать блюда</b></a>
           </div>
       {% endif %}
     </section>

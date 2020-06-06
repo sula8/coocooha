@@ -65,7 +65,7 @@ def fix_recipe(): #TODO: удалить. это временный код
 
 	for recipe in recipes:
 		recipe_db = Recipe.query.filter(Recipe.id == recipe['id']).first()
-		recipe_db.picture = recipe['picture'].replace('!d', '')
+		recipe_db.picture = f"item{recipe['id']}.jpg"
 
 		db.session.add(recipe_db)
 

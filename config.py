@@ -9,3 +9,4 @@ class Config:
     SECURITY_PASSWORD_HASH = 'sha512_crypt'
     SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    MEDIA_FOLDER = 'media'

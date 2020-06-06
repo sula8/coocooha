@@ -12,6 +12,10 @@ wizard = Blueprint('wizard', __name__, template_folder='templates')
 def render_wizard():
     ing_gr = IngredientGroup.query.all()
     ing = Ingredient()
+
+    if session.get('wizard_results'):
+        session.pop('wizard_results')
+
     return render_template("wizard/list.html", ing_gr=ing_gr, ing=ing)
 
 
@@ -23,8 +27,8 @@ def render_wizard_results():
         recipes = Recipe.query.filter(Recipe.id.in_(recipes_ids)).all()
         return render_template('wizard/recipes.html', recipes=recipes)
 
-    ing = request.form
-    user_ingredients = [int(ing_id) for ing_id in ing.values()]
+    ings = request.form
+    user_ingredients = [int(ing_id) for ing_id in ings.values()]
     session['user_ingredients'] = user_ingredients
 
     ingredients = Ingredient.query.filter(Ingredient.id.in_(user_ingredients)).all()

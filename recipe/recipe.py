@@ -1,9 +1,11 @@
-from flask import Blueprint
+from flask import Blueprint, send_from_directory
 from flask import session
 from flask import render_template
+from flask_login import current_user
 
-from models import Recipe, User
+from models import Recipe
 
+PIC_FOLDER = 'pictures'
 
 recipe = Blueprint('recipes', __name__, template_folder='templates')
 
@@ -16,12 +18,8 @@ def render_recipe(recipe_id):
 
     curr_recipe = Recipe.query.filter(Recipe.id == recipe_id).first()
 
-    if session.get('user_id'):
-        user_id = session.get('user_id')
-        user = User.query.filter(User.id == user_id).first()
-
-        if curr_recipe in user.favorites:
-            recipe_in_fav = True
+    if current_user.is_authenticated and (curr_recipe in current_user.favorites):
+        recipe_in_fav = True
 
     if session.get('user_ingredients'):
         user_ingredients = session.get('user_ingredients')
@@ -34,3 +32,8 @@ def render_recipe(recipe_id):
                            recipe_in_fav=recipe_in_fav,
                            user_ingredients=user_ingredients,
                            wizard_results=wizard_results)
+
+
+@recipe.route('/pictures/<path:filename>', methods=['GET', 'POST'])
+def get_recipe_pic(filename):
+    return send_from_directory(PIC_FOLDER, filename, as_attachment=True)

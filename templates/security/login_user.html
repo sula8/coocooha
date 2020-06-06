@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <main class="container mt-3 mb-5">
+
+        <section class="mx-auto pt-5 pb-3" style="width: 60%;">
+            <div class="card pr-4">
+
+                {% from "security/_macros.html" import render_field_with_errors, render_field %}
+                {% include "security/_messages.html" %}
+                <form action="{{ url_for_security('login') }}" method="POST" name="login_user_form">
+                    <div class="row">
+                        <div class="col-6">
+                            <img src="/static/sing-up.jpg" alt="" class="img-fluid">
+                        </div>
+                        <div class="col-6 py-4 px-2">
+                            <p class="h5 my-3"><b>{{ _('Вход') }}</b></p>
+                            <div class="form-group">
+                                {{ login_user_form.hidden_tag() }}
+                                {{ render_field_with_errors(login_user_form.email, class = "form-control") }}
+                                {{ render_field_with_errors(login_user_form.password, class = "form-control") }}
+                                {{ render_field_with_errors(login_user_form.remember) }}
+                                {{ render_field(login_user_form.next) }}
+                                {{ render_field(login_user_form.submit, class = "btn btn-dark") }}
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                {% include "security/_menu.html" %}
+
+            </div>
+        </section>
+    </main>
+{% endblock content %}

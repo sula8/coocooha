@@ -5,10 +5,10 @@
 
     <section class="mx-auto pt-5 pb-3" style="width: 60%;"> 
       <div class="card pr-4">
-        <form action="/">
+        <form action="{{ url_for('main.render_main') }}">
           <div class="row">
             <div class="col-6">
-              <img src="/static/sing-up.jpg" alt="" class="img-fluid">
+              <img src="{{ url_for('static', filename='sing-up.jpg') }}" alt="" class="img-fluid">
             </div>
             <div class="col-6 py-4 px-2">
               <p class="h5 my-3"><b>Регистрация</b></p>

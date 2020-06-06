@@ -7,7 +7,7 @@
       <section class="card pt-5">
         <div class="text-center pb-5">
           <h1 class="h2 font-weight-bold">Рецептов найдено: {{ recipes | length }}</h1>
-          <a href="/wizard" class="btn btn-warning rounded-pill px-3">Новый поиск</a>
+          <a href="{{ url_for('wizard.render_wizard') }}" class="btn btn-warning rounded-pill px-3">Новый поиск</a>
         </div>
         <!-- Рецепты -->
         <div>
@@ -17,14 +17,14 @@
                 <div class="recipe-wrap py-4 px-5">
                   <div class="row">
                     <div class="col-2">
-                      <img src="{{ recipe.picture }}" class="img-fluid" alt="" width="152">
+                      <img src="{{ url_for('recipes.get_recipe_pic', filename=recipe.picture) }}" class="img-fluid" alt="" width="152">
                     </div>
                     <div class="col-8">
                       <p class="h5"><b>{{ recipe.title }}</b></p>
                       <p>{{ recipe.description | truncate() }}</p>
                       <div class="row align-items-baseline">
                         <div class="col">
-                          <a href="/recipe/{{ recipe.id }}" class="btn btn-primary mr-3 mb-2">Открыть рецепт</a>
+                          <a href="{{ url_for('recipes.render_recipe', recipe_id=recipe.id) }}" class="btn btn-primary mr-3 mb-2">Открыть рецепт</a>
                         </div>
                         <div class="col">
                           <span class="text-muted">{{ recipe.servings }} порций по {{ recipe.kcal }} ККал</span>

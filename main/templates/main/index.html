@@ -4,10 +4,10 @@
   <main class="container mt-3 mb-5">
 
     <section class="jumbotron text-center">
-      <img src="../static/icon-banner.svg" alt="" width="156">
+      <img src="{{ url_for('static', filename='icon-banner.svg') }}" alt="" width="156">
       <h1 class="h1 mt-4 mb-3 font-weight-bold">Все, что в доме есть<br>Нужно быстро съесть!</h1>
       <p>Инновационный подбор рецептов Cookooha Tech</p>
-      <a href="/wizard" class="btn btn-warning rounded-pill px-4"><b>Поехали, кукуха!</b></a>
+      <a href="{{ url_for('wizard.render_wizard') }}" class="btn btn-warning rounded-pill px-4"><b>Поехали, кукуха!</b></a>
     </section>
 
     <section class="py-4 mb-5">
@@ -17,7 +17,7 @@
           <div class="card h-100">
             <div class="card-body">
               <div style="height: 80px;line-height: 80px;">
-                <img src="../static/icon-fridge.svg" alt="" width="72" class="align-bottom">
+                <img src="{{ url_for('static', filename='icon-fridge.svg') }}" alt="" width="72" class="align-bottom">
               </div>
               <p class="pt-3 card-text">Отмечаете,  что в холодильнике</p>
             </div>
@@ -27,7 +27,7 @@
           <div class="card h-100">
             <div class="card-body">
               <div style="height: 80px;line-height: 80px;">
-                <img src="../static/icon-list.svg" alt="" width="59" class="align-bottom">
+                <img src="{{ url_for('static', filename='icon-list.svg') }}" alt="" width="59" class="align-bottom">
               </div>
               <p class="pt-3 card-text">Получаете список <br>рецептов</p>
             </div>
@@ -37,7 +37,7 @@
           <div class="card h-100">
             <div class="card-body">
               <div style="height: 80px;line-height: 80px;">
-                <img src="../static/icon-flame.svg" alt="" width="62" class="align-bottom">
+                <img src="{{ url_for('static', filename='icon-flame.svg') }}" alt="" width="62" class="align-bottom">
               </div>
               <p class="pt-3 card-text">Готовите блюдо по инструкции</p>
             </div>
@@ -47,7 +47,7 @@
           <div class="card h-100">
             <div class="card-body">
               <div style="height: 80px;line-height: 80px;">
-                <img src="../static/icon-smile.svg" alt="" width="75"class="align-bottom" >
+                <img src="{{ url_for('static', filename='icon-smile.svg') }}" alt="" width="75"class="align-bottom" >
               </div>
               <p class="pt-3 card-text">Что получилось,  то получилось!</p>
             </div>
@@ -63,9 +63,8 @@
           {% for recipe in recipes %}
           <div class="col-lg-4 col-sm-6 pr-0">
             <div class="py-4 px-5 h-100">
-
               <a href="{{ url_for('recipes.render_recipe', recipe_id = recipe.id) }}" class="d-block pb-3">
-                <img src="{{ recipe.picture }}" alt="" width="124" class="rounded-circle">
+                <img src="{{ url_for('recipes.get_recipe_pic', filename=recipe.picture) }}" alt="" width="124" class="rounded-circle">
               </a>
               <a href="{{ url_for('recipes.render_recipe', recipe_id = recipe.id) }}">{{ recipe.title }}</a>
             </div>

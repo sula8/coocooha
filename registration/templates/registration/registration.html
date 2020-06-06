@@ -5,10 +5,10 @@
 
     <section class="mx-auto pt-5 pb-3" style="width: 60%;"> 
       <div class="card pr-4">
-        <form action="/registration/" method="POST">
+        <form action="{{ url_for('registration.registration') }}" method="POST">
           <div class="row">
             <div class="col-6">
-              <img src="/static/sing-up.jpg" alt="" class="img-fluid">
+              <img src="{{ url_for('static', filename='sing-up.jpg') }}" alt="" class="img-fluid">
             </div>
             <div class="col-6 py-4 px-2">
               {% if msg %}

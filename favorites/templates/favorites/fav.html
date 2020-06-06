@@ -6,7 +6,7 @@
     <div class="mx-auto pt-5 pb-3" style="width: 90%;">
       <section class="card pt-5">
         <div class="text-center pb-5">
-          <img src="../static/icon-skull.png" alt="" width="171">
+          <img src="{{ url_for('static', filename='icon-skull.png') }}" alt="" width="171">
           <h1 class="h2 font-weight-bold">Избранное</h1>
         </div>
         {% if msg %}
@@ -19,7 +19,7 @@
           {% for fav in favs %}
           <!-- Рецепт -->
           <div class="recipe border-top">
-            <form action="/remove_fav/{{ fav.id }}" method="post" class="recipe-wrap py-4 px-5">
+            <form action="{{ url_for('favorites.remove_fav', recipe_id=fav.id) }}" method="post" class="recipe-wrap py-4 px-5">
               <button type="submit" class="close" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -33,7 +33,7 @@
                 <p>{{ fav.description|truncate }}</p>
                 <div class="row align-items-baseline">
                   <div class="col">
-                    <a href="/recipe/{{ fav.id }}" class="btn btn-primary mr-3 mb-2">Открыть рецепт</a>
+                    <a href="{{ url_for('recipes.render_recipe', recipe_id=fav.id)}}" class="btn btn-primary mr-3 mb-2">Открыть рецепт</a>
                   </div>
                   <div class="col">
                     <span class="text-muted">{{ fav.servings }} порций по {{ fav.kcal }} ККал</span>
