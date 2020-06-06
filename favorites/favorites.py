@@ -45,9 +45,6 @@ def add_to_fav(recipe_id):
 @favorites.route('/remove/<int:recipe_id>/', methods=["POST"])
 @login_required
 def remove_fav(recipe_id):
-    if not session.get("user_id"):
-        return redirect("/login")
-
     user_id = session.get("user_id")
     user = User.query.filter(User.id == user_id).first()
     recipe = Recipe.query.filter(Recipe.id == recipe_id).first()
