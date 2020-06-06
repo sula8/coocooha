@@ -10,9 +10,11 @@ from app import db
 from forms import RegistrationForm
 from models import User, Role
 
-user_datastore = SQLAlchemyUserDatastore(db, User, Role)
 
 user_creation = Blueprint('registration', __name__, template_folder='templates')
+
+
+user_datastore = SQLAlchemyUserDatastore(db, User, Role)
 
 
 @user_creation.route("/", methods=["GET", "POST"])
