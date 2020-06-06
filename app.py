@@ -13,12 +13,6 @@ from models import db, User, Role
 from forms import LoginForm
 from config import Config
 
-from recipe.recipe import recipe
-from wizard.wizard import wizard
-from favorites.favorites import favorites
-from registration.registration import user_creation
-from main.main import main
-
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -26,12 +20,6 @@ app.config.from_object(Config)
 db.init_app(app)
 
 migrate = Migrate(app, db)
-
-app.register_blueprint(recipe, url_prefix='/recipe')
-app.register_blueprint(wizard, url_prefix='/wizard')
-app.register_blueprint(favorites, url_prefix='/favorites')
-app.register_blueprint(user_creation, url_prefix='/registration')
-app.register_blueprint(main, url_prefix='/')
 
 
 user_datastore = SQLAlchemyUserDatastore(db, User, Role)
