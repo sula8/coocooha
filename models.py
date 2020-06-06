@@ -37,6 +37,9 @@ class Recipe(db.Model):
 	ingredients = db.relationship('Ingredient', secondary=recipe_ingredient_assn, back_populates='recipes')
 	users = db.relationship('User', secondary=recipe_user_assn, back_populates='favorites')
 
+	def __repr__(self):
+		return f'{self.id} {self.title}'
+
 
 class Ingredient(db.Model):
 	__tablename__ = 'ingredients'
@@ -47,6 +50,9 @@ class Ingredient(db.Model):
 	recipes = db.relationship('Recipe', secondary=recipe_ingredient_assn, back_populates='ingredients')
 	ingredient_groups = db.relationship('IngredientGroup', back_populates='ingredients')
 
+	def __repr__(self):
+		return f'{self.id} {self.title}'
+
 
 class IngredientGroup(db.Model):
 	__tablename__ = 'ingredient_groups'
@@ -54,6 +60,9 @@ class IngredientGroup(db.Model):
 	title = db.Column(db.String)
 
 	ingredients = db.relationship('Ingredient', back_populates='ingredient_groups')
+
+	def __repr__(self):
+		return f'{self.id} {self.title}'
 
 
 class User(db.Model, UserMixin):
@@ -66,9 +75,15 @@ class User(db.Model, UserMixin):
 	roles = db.relationship('Role', secondary=roles_users, backref=db.backref('user', lazy='dynamic'))
 	favorites = db.relationship('Recipe', secondary=recipe_user_assn, back_populates='users')
 
+	def __repr__(self):
+		return f'{self.id} {self.email}'
+
 
 class Role(db.Model, RoleMixin):
 	__tablename__ = 'roles'
 	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 	name = db.Column(db.String(100), unique=True)
 	description = db.Column(db.String(255))
+
+	def __repr__(self):
+		return f'{self.id} {self.name}'
