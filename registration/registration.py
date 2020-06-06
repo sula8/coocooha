@@ -5,8 +5,9 @@ from flask import session
 from flask import render_template
 
 from flask_security import SQLAlchemyUserDatastore
+from flask_security.utils import hash_password
 
-from app import db
+from models import db
 from forms import RegistrationForm
 from models import User, Role
 
@@ -30,7 +31,7 @@ def registration():
             msg = "Пользователь уже существует"
             return render_template("registration.html", form=form, msg=msg)
 
-        user = user_datastore.create_user(email=form.email.data, password=form.password.data)
+        user = user_datastore.create_user(email=form.email.data, password=hash_password(form.password.data))
         db.session.add(user)
         db.session.commit()
 
