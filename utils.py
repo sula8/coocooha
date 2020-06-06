@@ -59,7 +59,7 @@ def recipe_to_bd():
 	db.session.commit()
 
 
-def fix_recipe(): #TODO: удалить. это временный код
+def fix_recipe(): # функция для того чтобы что-то конкретное изменить в рецептах в бд
 	with open("recipes.json", "r") as f:
 		recipes = json.load(f)
 

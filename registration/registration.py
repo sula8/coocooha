@@ -32,7 +32,9 @@ def registration():
             return render_template("registration.html", form=form, msg=msg)
 
         user = user_datastore.create_user(email=form.email.data, password=hash_password(form.password.data))
+        role = Role.query.filter(Role.name == 'user').first()
         db.session.add(user)
+        user_datastore.add_role_to_user(user, role)
         db.session.commit()
 
         return render_template("registration/registration_success.html", form=form, email=user.email)

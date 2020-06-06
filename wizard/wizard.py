@@ -56,7 +56,7 @@ def get_recipes(ingredients, user_ingredients):
                 counter += 1
         recipe.counter = counter
 
-    recipes_sorted = sorted(recipes, key=lambda r: r.counter, reverse=True) #TODO переделать обработку через бд
+    recipes_sorted = sorted(recipes, key=lambda r: r.counter, reverse=True)
 
     return recipes_sorted
 
