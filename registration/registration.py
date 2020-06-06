@@ -4,8 +4,9 @@ from flask import redirect
 from flask import session
 from flask import render_template
 
+from app import user_datastore
 from forms import RegistrationForm
-from models import db, User
+from models import db, User, Role
 
 user_creation = Blueprint('registration', __name__, template_folder='templates')
 
@@ -23,7 +24,7 @@ def registration():
             msg = "Пользователь уже существует"
             return render_template("registration.html", form=form, msg=msg)
 
-        user = User(email=form.email.data, password=form.password.data)
+        user = user_datastore.create_user(email=form.email.data, password=form.password.data)
         db.session.add(user)
         db.session.commit()
 

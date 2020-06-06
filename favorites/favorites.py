@@ -5,15 +5,16 @@ from flask import redirect
 from flask import session
 from flask import render_template
 
+from flask_security import login_required
+
 from models import db, Recipe, User
 
 favorites = Blueprint('favorites', __name__, template_folder='templates')
 
 
 @favorites.route('/')
+@login_required
 def render_favs():
-    if not session.get("user_id"):
-        return redirect("/login")
     user_id = session.get("user_id")
 
     user = User.query.filter(User.id == user_id).first()
@@ -23,6 +24,7 @@ def render_favs():
 
 
 @favorites.route('/add/<int:recipe_id>/', methods=["POST"])
+@login_required
 def add_to_fav(recipe_id):
     if not session.get("user_id"):
         return redirect("/login")
@@ -41,6 +43,7 @@ def add_to_fav(recipe_id):
 
 
 @favorites.route('/remove/<int:recipe_id>/', methods=["POST"])
+@login_required
 def remove_fav(recipe_id):
     if not session.get("user_id"):
         return redirect("/login")

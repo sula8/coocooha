@@ -6,7 +6,10 @@ from flask import request
 
 from flask_migrate import Migrate
 
-from models import db, User
+from flask_security import Security
+from flask_security import SQLAlchemyUserDatastore
+
+from models import db, User, Role
 from forms import LoginForm
 from config import Config
 
@@ -20,6 +23,10 @@ from main.main import main
 app = Flask(__name__)
 app.config.from_object(Config)
 
+db.init_app(app)
+
+migrate = Migrate(app, db)
+
 app.register_blueprint(recipe, url_prefix='/recipe')
 app.register_blueprint(wizard, url_prefix='/wizard')
 app.register_blueprint(favorites, url_prefix='/favorites')
@@ -27,9 +34,8 @@ app.register_blueprint(user_creation, url_prefix='/registration')
 app.register_blueprint(main, url_prefix='/')
 
 
-db.init_app(app)
-
-migrate = Migrate(app, db)
+user_datastore = SQLAlchemyUserDatastore(db, User, Role)
+security = Security(app, user_datastore)
 
 
 @app.route("/login/", methods=["GET", "POST"])
@@ -70,15 +76,6 @@ def logout():
         session.pop("user_id")
     return redirect("/login")
 
-
-@app.errorhandler(404)
-def page_not_found(e):
-    return '404 error', 404
-
-
-@app.errorhandler(405)
-def page_not_found(e):
-    return redirect('/'), 405
 
 #export DATABASE_URL='postgresql+psycopg2://postgres:postgres@127.0.0.1:5432/coocooha'
 
