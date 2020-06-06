@@ -18,7 +18,9 @@ from main.main import main
 from recipe.recipe import recipe
 from wizard.wizard import wizard
 from favorites.favorites import favorites
-from registration.registration import user_creation, user_datastore
+from registration.registration import user_creation#, user_datastore
+
+from flask_security import SQLAlchemyUserDatastore
 
 
 app = Flask(__name__)
@@ -28,6 +30,8 @@ app.config.from_object(Config)
 db.init_app(app)
 
 migrate = Migrate(app, db)
+
+user_datastore = SQLAlchemyUserDatastore(db, User, Role)
 
 security = Security(app, user_datastore)
 
@@ -46,46 +50,10 @@ app.register_blueprint(favorites, url_prefix='/favorites')
 app.register_blueprint(user_creation, url_prefix='/registration')
 
 
-@app.route("/login2/", methods=["GET", "POST"])
-def login():
-    if session.get("user_id"):
-        return redirect("/")
-
-    # Создаем форму
-    form = LoginForm()
-
-    if request.method == "POST":
-
-        # Если форма не валидна
-        if not form.validate_on_submit():
-
-            # показываем форму и не забываем передать форму в шаблон
-            return render_template("login.html", form=form)
-
-        #Информацию о пользователе берем из базы по введенной почте
-        user = User.query.filter(User.email == form.email.data).first()
-
-        # Данные берем из формы
-        if not user or user.password != form.password.data:
-
-            # Добавляем ошибку для поля формы
-            form.email.errors.append("Неверное имя или пароль")
-
-        else:
-            session["user_id"] = user.id
-            return redirect("/")
-
-    return render_template("login.html", form=form)
-
-
-@app.route('/logout2/', methods=["POST"])
-def logout():
-    if session.get("user_id"):
-        session.pop("user_id")
-    return redirect("/login")
 
 
 #export DATABASE_URL='postgresql+psycopg2://postgres:postgres@127.0.0.1:5432/coocooha'
+#export FLASK_ENV=development
 
 #TODO:блупринты
 
