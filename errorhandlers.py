@@ -1,13 +1,9 @@
-from werkzeug.utils import redirect
-
-from app import app
+from flask import url_for, redirect
 
 
-@app.errorhandler(404)
 def page_not_found(e):
-    return '404 error', 404
+    return redirect(url_for('main.render_main')), 404
 
 
-@app.errorhandler(405)
-def page_not_found(e):
-    return redirect('/'), 405
+def method_not_allowed(e):
+    return redirect(url_for('main.render_main')), 405

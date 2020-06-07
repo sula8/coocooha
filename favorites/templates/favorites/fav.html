@@ -26,14 +26,14 @@
             </form>
             <div class="row">
               <div class="col-2">
-                <img src="{{ fav.picture }}" class="img-fluid" alt="" width="152">
+                <img src="{{ url_for('recipes.get_recipe_pic', filename=fav.picture) }}" class="img-fluid" alt="" width="152">
               </div>
               <div class="col-8">
                 <p class="h5"><b>{{ fav.title }}</b></p>
                 <p>{{ fav.description|truncate }}</p>
                 <div class="row align-items-baseline">
                   <div class="col">
-                    <a href="{{ url_for('recipes.render_recipe', recipe_id=fav.id)}}" class="btn btn-primary mr-3 mb-2">Открыть рецепт</a>
+                    <a href="{{ url_for('recipes.render_recipe', recipe_id = fav.id) }}" class="btn btn-primary mr-3 mb-2">Открыть рецепт</a>
                   </div>
                   <div class="col">
                     <span class="text-muted">{{ fav.servings }} порций по {{ fav.kcal }} ККал</span>

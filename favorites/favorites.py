@@ -7,7 +7,7 @@ from flask import render_template
 from flask_login import current_user
 from flask_security import login_required
 
-from models import db, Recipe
+from ..models import db, Recipe
 
 favorites = Blueprint('favorites', __name__, template_folder='templates')
 

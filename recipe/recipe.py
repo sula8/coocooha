@@ -6,7 +6,7 @@ from flask import session
 from flask import render_template
 from flask_login import current_user
 
-from models import Recipe
+from ..models import Recipe
 
 PIC_FOLDER = 'pictures'
 
@@ -39,4 +39,5 @@ def render_recipe(recipe_id):
 
 @recipe.route('/pictures/<path:filename>')
 def get_recipe_pic(filename):
+    print(path.join('recipe', 'pictures', filename))
     return send_file(path.join('recipe', 'pictures', filename))

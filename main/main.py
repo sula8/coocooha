@@ -2,7 +2,7 @@ from flask import Blueprint
 from flask import render_template
 from sqlalchemy import func
 
-from models import Recipe, recipe_user_assn
+from ..models import Recipe, recipe_user_assn
 
 
 main = Blueprint('main', __name__, template_folder='templates')
