@@ -18,7 +18,6 @@ from favorites.favorites import favorites
 from registration.registration import user_creation, user_datastore
 
 
-
 app = Flask(__name__)
 
 app.config.from_object(Config)
@@ -62,11 +61,10 @@ app.register_blueprint(wizard, url_prefix='/wizard')
 app.register_blueprint(favorites, url_prefix='/favorites')
 app.register_blueprint(user_creation, url_prefix='/registration')
 
+import errorhandlers
 
-
-
+#TODO: сделать фабрику приложения
 
 #TODO: удалить это: export DATABASE_URL='postgresql+psycopg2://postgres:postgres@127.0.0.1:5432/coocooha'
 #TODO: удалить это: export FLASK_ENV=development
 
-#TODO: эррор хэндлеры
