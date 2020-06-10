@@ -3,7 +3,7 @@ from flask import session
 from flask import request
 from flask import render_template
 
-from ..models import Recipe, Ingredient, IngredientGroup
+from models import Recipe, Ingredient, IngredientGroup
 
 wizard = Blueprint('wizard', __name__, template_folder='templates')
 

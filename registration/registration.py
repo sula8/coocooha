@@ -7,9 +7,9 @@ from flask import render_template
 from flask_security import SQLAlchemyUserDatastore
 from flask_security.utils import hash_password
 
-from ..models import db
-from ..forms import RegistrationForm
-from ..models import User, Role
+from models import db
+from forms import RegistrationForm
+from models import User, Role
 
 
 user_creation = Blueprint('registration', __name__, template_folder='templates')

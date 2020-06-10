@@ -5,16 +5,17 @@ from flask_migrate import Migrate
 from flask_security import Security
 from flask_admin import Admin
 
-from .main.main import main
-from .recipe.recipe import recipe
-from .wizard.wizard import wizard
-from .favorites.favorites import favorites
-from .registration.registration import user_creation, user_datastore
+from main.main import main
+from recipe.recipe import recipe
+from wizard.wizard import wizard
+from favorites.favorites import favorites
+from registration.registration import user_creation, user_datastore
 
-from .administrator import AdminView, HomeAdminView
+from administrator import AdminView, HomeAdminView
 
-from .models import db, User, Recipe, Ingredient, IngredientGroup, Role
+from models import db, User, Recipe, Ingredient, IngredientGroup, Role
 
+from errorhandlers import page_not_found, method_not_allowed
 
 app_dir = os.path.abspath(os.path.dirname(__file__))
 
@@ -50,7 +51,6 @@ def create_app(config):
 
 
 	#Errorhandlers
-	from .errorhandlers import page_not_found, method_not_allowed
 	app.register_error_handler(404, page_not_found)
 	app.register_error_handler(405, method_not_allowed)
 
