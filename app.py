@@ -1,6 +1,7 @@
-from .config import DevConfig
+import os
+
 from . import create_app
 
 
-app = create_app(DevConfig)
+app = create_app(os.getenv("FLASK_CONFIG", default="coocooha.config.ProdConfig"))
 
