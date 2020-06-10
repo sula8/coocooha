@@ -29,7 +29,7 @@ def registration():
         user = User.query.filter(User.email == form.email.data).first()
         if user:
             msg = "Пользователь уже существует"
-            return render_template("registration.html", form=form, msg=msg)
+            return render_template("registration/registration.html", form=form, msg=msg)
 
         user = user_datastore.create_user(email=form.email.data, password=hash_password(form.password.data))
         role = Role.query.filter(Role.name == 'user').first()
